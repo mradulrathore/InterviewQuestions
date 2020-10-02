@@ -20,3 +20,5 @@ class Solution {
             return a1.get(k-1);   // return kth factor       
     }
 }
+
+// Required complexity O(√n)
