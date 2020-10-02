@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class CourseSchedule{
-    static ArrayList<Integer> buildOrder = new ArrayList<Integer>();
+    static ArrayList<Integer> courseOrder = new ArrayList<Integer>();
 
     public static void main(String[] args){
         
@@ -16,7 +16,7 @@ public class CourseSchedule{
         System.out.println("Enter number of dependencies :");
         int numberOfDependencies = sc.nextInt();
         int[][] dependency = new int[numberOfDependencies][2];
-        System.out.println("Enter dependencies : format : course1 space course2 numbers , meaning course2 depends on course1");
+        System.out.println("Enter dependencies : format : course1 space course2 numbers , meaning course1 depends on course2");
         for(int i=0;i<numberOfDependencies;i++){
             dependency[i][0] = sc.nextInt();
             dependency[i][1] = sc.nextInt();
@@ -24,12 +24,12 @@ public class CourseSchedule{
 
 
 
-        boolean isCourseCompletionPossible = isBuildCompletionPossible(courses,dependency);
+        boolean isCourseCompletionPossible = iscourseCompletionPossible(courses,dependency);
         if(isCourseCompletionPossible){
-            System.out.println("Order in which the courses has to be taken :"+buildOrder);
+            System.out.println("Order in which the courses has to be taken :"+courseOrder);
         }
         else{
-            System.out.println("With the given dependency the build cant complete .");
+            System.out.println("With the given dependency we cant complete the courses .");
         }
     }
 
@@ -40,7 +40,7 @@ public class CourseSchedule{
         }
     }
 
-    private static boolean isBuildCompletionPossible(int[] courses ,int[][] dependencies){
+    private static boolean iscourseCompletionPossible(int[] courses ,int[][] dependencies){
 
         HashMap<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
 
@@ -79,7 +79,7 @@ public class CourseSchedule{
                     map.put(mapEntry.getKey(),dependingOnList);
                     if(dependingOnList.size() == 0){
                         nonDependentProjectQueue.add(mapEntry.getKey());
-                        buildOrder.add(mapEntry.getKey());
+                        courseOrder.add(mapEntry.getKey());
                     }
 
                 }
@@ -96,7 +96,7 @@ public class CourseSchedule{
         for(Map.Entry<Integer,ArrayList<Integer>> mapEntry : map.entrySet()){
                 if(mapEntry.getValue().size() == 0){
                     nonDependentProjectQueue.add(mapEntry.getKey());
-                    buildOrder.add(mapEntry.getKey());
+                    courseOrder.add(mapEntry.getKey());
                 }
         }
         return nonDependentProjectQueue;
