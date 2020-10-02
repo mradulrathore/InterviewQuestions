@@ -1,26 +1,24 @@
 class Solution {
     public int kthFactor(int n, int k) {
         
-        ArrayList<Integer> al= new ArrayList<>();
-        for(int i=1;i<=n;i++)
+        ArrayList<Integer> a1 = new ArrayList<>();
+        ArrayList<Integer> a2 = new ArrayList<>();
+        for(int i = 1; i*i <= n; i++)   // sqrt factorization
         {
-            if(n%i==0)
-                al.add(i);
+            if(n%i == 0)
+            {
+                a1.add(i);
+                if(i != n/i)
+                    a2.add(n/i);                       
+            }
         }
-        
-        if(al.size()<k)
-            return -1;
+        for(int j = 0; j < a2.size(); j++)
+            a1.add( a2.get( a2.size() - j -1)); // Merging both list in sorted order
+        if(a1.size()<k)
+            return -1; // if kth factor is not available
         else
-        {
-            Integer[] arr = new Integer[al.size()]; 
-            arr = al.toArray(arr); 
-            Arrays.sort(arr);
-            
-            
-        return arr[k-1];     
-        }
-       
-
-        
+            return a1.get(k-1);   // return kth factor       
     }
 }
+
+// Required complexity O(√n)
